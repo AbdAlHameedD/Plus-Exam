@@ -1,0 +1,52 @@
+<!-- Question Container -->
+<div class="col-12 border-3px mb-5 mt-sm-5 mt-md-5 mt-lg-0 questionCard" style="height:fit-content;">
+    <div class="row">
+        <!-- Questions Text Container -->
+        <div class="container m-3">
+
+            <div class="row justify-content-start">
+
+                <!-- Question Number Text -->
+                <div>
+                    <p class="font-family-tahoma font-weight-bold">
+                        Q{{ questionNumber }}:
+                    </p>
+                </div>
+
+                <!-- Question Content Text -->
+                <div class="col-10">
+                    <p class="font-family-tahoma;"> {{ question.questionContent }} </p>
+                </div>
+
+            </div>
+            <hr class="mt-0" />
+            <input type="hidden" value="{{ question.id }}" class="hidden" />
+            <!-- Options Container -->
+            <div class="row">
+
+                <!-- Options -->
+                <ng-container *ngIf="question.type === 'Single'">
+                    <!-- Single Option (Radio) -->
+                    <app-single-option class="col-12" *ngFor="let option of options; let i = index"
+                        [questionId]="question.id" [optionId]="option.id" [optionContent]="option.optionContent"
+                        [optionNumber]="i+1"></app-single-option>
+
+                </ng-container>
+
+                <ng-container *ngIf="question.type === 'Multiple'">
+                    <!-- Multiple Option (Checkbox) -->
+                    <app-multiple-option class="col-12" *ngFor="let option of options; let i = index"
+                        [questionId]="question.id" [optionId]="option.id" [optionContent]="option.optionContent"
+                        [optionNumber]="i+1"></app-multiple-option>
+                </ng-container>
+
+                <ng-container *ngIf="question.type === 'Fill'">
+                    <!-- Fill Option (Textarea) -->
+                    <app-fill-option class="col-12" [questionId]="question.id"></app-fill-option>
+                </ng-container>
+
+
+            </div>
+        </div>
+    </div>
+</div>

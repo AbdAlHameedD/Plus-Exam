@@ -1,0 +1,30 @@
+<div class="services mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="section_title_container text-center">
+                    <div class="section_subtitle"></div>
+                    <div class="section_title">
+                        <h1>OUR SERVICES</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row services_row">
+
+            <div *ngFor="let service of home.ourServiceData" class="col-xl-4 col-md-6">
+                <div class="service">
+                    <div class="service_title_container d-flex flex-row align-items-center justify-content-start">
+                        <div class="service_title">
+                            <h3>{{service.title}}</h3>
+                        </div>
+                    </div>
+                    <div class="service_text">
+                        <p>{{service.text}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

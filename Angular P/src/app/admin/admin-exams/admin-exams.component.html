@@ -1,0 +1,626 @@
+<div class="overflow-hidden dark-edition bg-white">
+    <div class="wrapper">
+        <app-side-bar></app-side-bar>
+        <div class="main-panel">
+            <app-nav-bar></app-nav-bar>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 mb-30">
+                            <div class="card card-statistics h-100">
+                                <div class="card-body">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>Exams Information</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="card-box table-responsive">
+                                                        <p class="text-muted font-13 m-b-30">
+                                                            <button class="btn btn-success btn-lg"
+                                                                (click)="openCreateExamDialog()" aria-pressed="true">Add
+                                                                Exam</button>
+                                                            <br><br>
+                                                        </p>
+
+                                                        <div class="container-fluid mb-4">
+                                                            <div class="row">
+                                                                <div class="col-3">
+                                                                    <div class="row justify-content-start">
+                                                                        <div class="col-4">
+                                                                            <label for="startDate" class="pr-3"
+                                                                                style="color: #000;">Start Date:
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div class="col-4">
+                                                                            <input [(ngModel)]="startDateFilter"
+                                                                                (change)="filterExams()"
+                                                                                type="datetime-local" id="startDate"
+                                                                                placeholder="Start Date" />
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="row justify-content-start mt-3">
+                                                                        <div class="col-4">
+                                                                            <label for="endDate" class="pr-3"
+                                                                                style="color: #000;">End Date:
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div class=" col-4">
+                                                                            <input [(ngModel)]="endDateFilter"
+                                                                                (change)="filterExams()"
+                                                                                type="datetime-local" id="endDate"
+                                                                                placeholder="End Date" />
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <button class="btn btn-dark d-block mx-auto my-3"
+                                                                        (click)="resetFiter()">Clear</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <table class="table text-center"
+                                                            [(ngModel)]="adminService.exams">
+
+                                                            <thead>
+
+                                                                <tr>
+                                                                    <th>
+                                                                        Course Name
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Exam Name
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Success Mark
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Start Date
+                                                                    </th>
+
+                                                                    <th>
+                                                                        End Date
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Exam Level
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Cost
+                                                                    </th>
+
+                                                                    <!-- Arrow Details -->
+                                                                    <th></th>
+
+                                                                </tr>
+
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <ng-container
+                                                                    *ngFor="let exam of adminService.exams; let i=index">
+
+
+                                                                    <tr class="row-element cus-bottom-border"
+                                                                        (click)="handleExpand(i)">
+                                                                        <!-- Course Name -->
+                                                                        <td>
+                                                                            {{ exam.courseName | titlecase }}
+                                                                        </td>
+
+                                                                        <!-- Exam Name -->
+                                                                        <td>
+                                                                            {{ exam.title | titlecase }}
+                                                                        </td>
+
+                                                                        <!-- Success Mark -->
+                                                                        <td>
+                                                                            {{ exam.successMark }}%
+                                                                        </td>
+
+                                                                        <!-- Start Date -->
+                                                                        <td>
+                                                                            {{ exam.startDate | date: 'medium' }}
+                                                                        </td>
+
+                                                                        <!-- End Date -->
+                                                                        <td>
+                                                                            {{ exam.endDate | date: 'medium' }}
+                                                                        </td>
+
+                                                                        <!-- Exam Level -->
+                                                                        <td>
+                                                                            {{ exam.examLevel }}
+                                                                        </td>
+
+                                                                        <!-- Exam Cost -->
+                                                                        <td>
+                                                                            {{ exam.cost }}$
+                                                                        </td>
+
+                                                                        <!-- Details Arrow -->
+                                                                        <td>
+                                                                            <button class="btn btn-light px-2">
+                                                                                <i
+                                                                                    class="fa fa-angle-down transition-3"></i>
+                                                                            </button>
+
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr class="row-details display-none">
+                                                                        <td colspan="8" style="overflow: hidden;">
+                                                                            <div class="details-container"
+                                                                                style="transform: translateY(-110%); transition: 0.5s;">
+                                                                                <div class="container">
+
+                                                                                    <div class="row justify-content-around"
+                                                                                        style="color: #000">
+
+                                                                                        <!-- Description, Creation Date Section -->
+                                                                                        <div class="col-4">
+
+                                                                                            <!-- Exam Description -->
+                                                                                            <div class="container"
+                                                                                                style="border-radius: 5px;
+                                                                                    border: 1px solid silver;">
+                                                                                                <!-- Description Label -->
+                                                                                                <div
+                                                                                                    class="row justify-content-start ml-3 mt-2 description-label">
+                                                                                                    Description
+                                                                                                </div>
+                                                                                                <hr class="mb-0"
+                                                                                                    style="color: silver" />
+                                                                                                <!-- Description Textarea -->
+                                                                                                <div
+                                                                                                    class="row justify-content-start ml-3 p-3 description-container">
+                                                                                                    <p title="Exam Description"
+                                                                                                        style="font-size: .875rem">
+                                                                                                        {{
+                                                                                                        exam.description
+                                                                                                        }}
+                                                                                                    </p>
+                                                                                                </div>
+
+                                                                                            </div>
+
+                                                                                            <!-- Creation Date -->
+                                                                                            <div class="mt-3">
+
+                                                                                                <div
+                                                                                                    class="container cus-border">
+
+                                                                                                    <div class="row">
+                                                                                                        <!-- Creation Date Label -->
+                                                                                                        <div
+                                                                                                            class="col-5 p-3 font-family-tahoma cus-st">
+                                                                                                            Creation
+                                                                                                            Date
+                                                                                                        </div>
+
+                                                                                                        <!-- Creation Date Data -->
+                                                                                                        <div title="Exam Creation Date"
+                                                                                                            class="col-7 p-3 font-family-tahoma">
+                                                                                                            {{
+                                                                                                            exam.startDate
+                                                                                                            |
+                                                                                                            date:
+                                                                                                            'medium'
+                                                                                                            }}
+                                                                                                        </div>
+                                                                                                    </div>
+
+
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-4">
+                                                                                            <div class="container">
+
+                                                                                                <!-- Exam Image -->
+                                                                                                <div class="row">
+                                                                                                    <div
+                                                                                                        class="container">
+                                                                                                        <div class="exam-img"
+                                                                                                            style="background-image: url('../../../assets/images/exam_images/{{ exam.examImage }}')"
+                                                                                                            title="Exam Image">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <!-- Exam Title -->
+                                                                                                <div
+                                                                                                    class="row justify-content-center">
+                                                                                                    <h3 class="texe-center ex-title mt-3"
+                                                                                                        title="Exam Title">
+                                                                                                        {{ exam.title |
+                                                                                                        titlecase }}
+                                                                                                    </h3>
+                                                                                                </div>
+
+                                                                                                <!-- Exam Proccess -->
+                                                                                                <div
+                                                                                                    class="row justify-content-center mt-3">
+                                                                                                    <div
+                                                                                                        class="container w-75">
+                                                                                                        <div
+                                                                                                            class="row justify-content-between">
+
+                                                                                                            <a class="btn btn-info btn-sm w-25"
+                                                                                                                role="button"
+                                                                                                                aria-pressed="true"
+                                                                                                                (click)="updateExam(exam)"
+                                                                                                                title="Edit"><i
+                                                                                                                    class="fa fa-edit"></i></a>
+                                                                                                            <a class="btn btn-danger btn-sm text-white w-25"
+                                                                                                                role="button"
+                                                                                                                aria-pressed="true"
+                                                                                                                (click)="deleteExam(exam)"
+                                                                                                                title="Delete"
+                                                                                                                style="cursor:pointer;"><i
+                                                                                                                    class="fa fa-trash"></i></a>
+
+                                                                                                            <a class="btn btn-success btn-sm text-white w-25"
+                                                                                                                role="button"
+                                                                                                                aria-pressed="true"
+                                                                                                                (click)="navigateToAddQuestions(exam.id)"
+                                                                                                                title="Add Questions"
+                                                                                                                style="cursor:pointer;"><i
+                                                                                                                    class="fa fa-plus"></i></a>
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <!-- Exam Details -->
+                                                                                        <div class="col-4">
+
+                                                                                            <div class="row">
+                                                                                                <div class="container">
+
+                                                                                                    <!-- Passcode -->
+                                                                                                    <div
+                                                                                                        class="row cus-border">
+                                                                                                        <div
+                                                                                                            class="col-7 py-3 cus-st">
+                                                                                                            Passcode
+                                                                                                        </div>
+
+                                                                                                        <div class="col-5 py-3 text-center"
+                                                                                                            title="Exam Passcode">
+                                                                                                            {{
+                                                                                                            exam.passcode
+                                                                                                            }}
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                    <!-- Mark Status -->
+                                                                                                    <div
+                                                                                                        class="row mt-4 cus-border">
+                                                                                                        <div
+                                                                                                            class="col-7 py-3 cus-st">
+                                                                                                            Mark Status
+                                                                                                        </div>
+
+                                                                                                        <div class="col-5 py-3"
+                                                                                                            title="Exam Mark Status">
+                                                                                                            {{
+                                                                                                            exam.markStatus
+                                                                                                            }}
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                    <!-- Status -->
+                                                                                                    <div
+                                                                                                        class="row mt-4 cus-border">
+                                                                                                        <div
+                                                                                                            class="col-7 py-3 cus-st">
+                                                                                                            Status
+                                                                                                        </div>
+
+                                                                                                        <div class="col-5 py-3"
+                                                                                                            title="Exam Status">
+                                                                                                            {{
+                                                                                                            exam.status
+                                                                                                            }}
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                    <!-- Number Of Questions -->
+                                                                                                    <div
+                                                                                                        class="row mt-4 cus-border">
+                                                                                                        <div
+                                                                                                            class="col-7 py-3 cus-st">
+                                                                                                            Number Of
+                                                                                                            Questions
+                                                                                                        </div>
+
+                                                                                                        <div class="col-5 py-3"
+                                                                                                            title="Exam Number Of Questions">
+                                                                                                            {{
+                                                                                                            exam.numberOfQuestions
+                                                                                                            }}
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </ng-container>
+
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Update Exam Dialog -->
+<ng-template #callUpdateDialog>
+    <mat-dialog-content class="col-12 m-0 mat-typography" style="width: 600px;">
+        <div class="modal-header mb-3">
+            <h5 style="font-family: 'Cairo', sans-serif; font-weight: bold; color: black;" class="modal-title"
+                id="exampleModalLabel">Update Exam</h5>
+            <button type="button" class="close text-danger" mat-button mat-dialog-close="no">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form class="example-form" [formGroup]="updateForm">
+
+            <div class="row py-1  mt-2">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Course Name </mat-label>
+                        <mat-select formControlName="courseId" [(ngModel)]="exam.courseName">
+                            <mat-option *ngFor="let course of adminService.CoursesData" value="{{ course.id }}">
+                                {{
+                                course.courseName | titlecase }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1">
+                <div class="col-md-12">
+                    <mat-form-field class="w-100 example-full-width" appearance="fill">
+                        <mat-label>Exam Name</mat-label>
+                        <input type="text" matInput formControlName="title" [(ngModel)]="exam.title">
+                        <mat-error *ngIf="updateForm.controls.title.hasError('maxlength')">
+                            Max Length<strong> 50</strong>
+                        </mat-error>
+                        <mat-error *ngIf="updateForm.controls.title.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1 mt-2">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Description </mat-label>
+                        <textarea style="height: 123px!important" type="text" matInput [(ngModel)]="exam.description"
+                            formControlName="description"></textarea>
+                        <mat-error *ngIf="updateForm.controls.description.hasError('maxlength')">
+                            Max Length<strong> 150</strong>
+                        </mat-error>
+
+                        <mat-error *ngIf="updateForm.controls.description.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1  mt-2">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Exam Level </mat-label>
+                        <mat-select formControlName="examLevel" [(ngModel)]="exam.examLevel">
+                            <mat-option value="Beginner">Beginner</mat-option>
+                            <mat-option value="Intermediate">Intermediate</mat-option>
+                            <mat-option value="Advanced">Advanced</mat-option>
+                            <mat-option value="Expert">Expert</mat-option>
+                        </mat-select>
+
+                        <mat-error *ngIf="updateForm.controls.examLevel.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1 mt-2">
+                <div class="col-md-6 mt-2 mt-sm-2 mt-md-0">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Start Date</mat-label>
+                        <input type="datetime-local" matInput formControlName="startDate" [(ngModel)]="exam.startDate">
+                        <mat-error *ngIf="updateForm.controls.startDate.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6 mt-2 mt-sm-2 mt-md-0">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>End Date</mat-label>
+                        <input type="datetime-local" matInput formControlName="endDate" [(ngModel)]="exam.endDate">
+
+                        <mat-error *ngIf="updateForm.controls.endDate.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1  mt-2">
+                <div class="col-md-6 mt-2 mt-sm-2 mt-md-0">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Mark Status</mat-label>
+                        <mat-select formControlName="markStatus" [(ngModel)]="exam.markStatus">
+                            <mat-option value="HIDE">HIDE</mat-option>
+                            <mat-option value="SHOW">SHOW</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="updateForm.controls.markStatus.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6 mt-2 mt-sm-2 mt-md-0">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status" [(ngModel)]="exam.status">
+                            <mat-option value="ENABLE">ENABLE</mat-option>
+                            <mat-option value="DISABLE">DISABLE</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="updateForm.controls.status.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1 mt-2">
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Success Mark %</mat-label>
+                        <input type="number" step="10" matInput formControlName="successMark"
+                            [(ngModel)]="exam.successMark" />
+                        <mat-error *ngIf=" updateForm.controls.successMark.hasError('max')">
+                            Max Value<strong> 100</strong>
+                        </mat-error>
+
+                        <mat-error *ngIf="updateForm.controls.successMark.hasError('min')">
+                            Min Value<strong> 0</strong>
+                        </mat-error>
+
+                        <mat-error *ngIf="updateForm.controls.successMark.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-4 mt-2 mt-sm-2 mt-md-0">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Number Of Questions</mat-label>
+                        <input type="number" step="10" matInput formControlName="numberOfQuestions"
+                            [(ngModel)]="exam.numberOfQuestions" />
+                        <mat-error *ngIf="updateForm.controls.numberOfQuestions.hasError('min')">
+                            Min Value<strong> 1</strong>
+                        </mat-error>
+
+                        <mat-error *ngIf="updateForm.controls.numberOfQuestions.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-4 mt-2 mt-sm-2 mt-md-0">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Cost $</mat-label>
+                        <input type="number" step="10" matInput formControlName="cost" [(ngModel)]="exam.cost" />
+                        <mat-error *ngIf="updateForm.controls.cost.hasError('min')">
+                            Min Value<strong> 0</strong>
+                        </mat-error>
+
+                        <mat-error *ngIf="updateForm.controls.cost.hasError('required')">
+                            This Filed is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row py-1 mt-2">
+                <div class="col-12">
+                    <mat-form-field class="example-full-width w-100" appearance="fill">
+                        <mat-label>Zoom Link</mat-label>
+                        <input type="text" matInput formControlName="zoomMeeting" [(ngModel)]="exam.zoomMeeting" />
+                    </mat-form-field>
+
+                </div>
+            </div>
+
+            <div class="row py-1 mt-2">
+                <div class="col-md-6">
+                    <label class="form-check-label mb-2" for="examImg" style="color: #6c757d;">Exam Image</label>
+                    <input type="file" #file id="examImg" formControlName="examImage" />
+                </div>
+            </div>
+
+        </form>
+
+        <mat-dialog-actions>
+            <button class="btn btn-sm btn-danger" mat-button mat-dialog-close>Cancel</button>
+            <button class="btn btn-sm btn-success" mat-button [mat-dialog-close]="true" [disabled]="!updateForm.valid"
+                (click)="saveExam(file.files)">Save</button>
+        </mat-dialog-actions>
+
+    </mat-dialog-content>
+</ng-template>
+<!-- /End Update Exam Dialog -->
+
+<!-- Delete Exam Dialog -->
+<ng-template #callDeleteDialog>
+    <div class="modal-header">
+        <h5 style="font-family: 'Cairo', sans-serif; font-weight: bold; color: black;" class="modal-title"
+            id="exampleModalLabel">Deleted Exam</h5>
+        <button type="button" class="close text-danger" mat-button mat-dialog-close="no">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body py-3">
+        <h5 style="font-family: 'Cairo', sans-serif; color: black; font-weight: bold;">Are you sure you want to delete
+            exam and all related data?
+        </h5>
+        <label style="color: #001166; font-weight:bold;">Exam Name: {{exam.title}}</label>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary font-weight-bold" mat-button mat-dialog-close>Close</button>
+        <button class="btn btn-sm btn-danger" mat-button (click)="submitDeleteExam(exam.id)"
+            mat-dialog-close>Delete</button>
+    </div>
+</ng-template>
+<!-- /End Delete Exam Dialog -->

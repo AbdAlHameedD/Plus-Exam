@@ -1,0 +1,114 @@
+.mat-stroked-button {
+    color: rgba(255, 255, 255, .5) !important;
+    padding: .5rem 1rem !important;
+}
+
+.link-font-size {
+    font-size: 18px !important;
+}
+
+.pls-pri-col {
+    color: #016 !important;
+}
+
+.pls-sec-col {
+    color: #000 !important;
+}
+
+.ftco_navbar_light {
+    background-color: #ffffff!important;
+    box-shadow: 1px 1px 10px 5px grey;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    transition: 0.3s;
+}
+
+.collapse:not(.show) {
+    display: none
+}
+
+.navbar-collapse {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;  
+}
+
+.nav-item {
+    position: relative
+}
+
+.nav-item::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #d70926;
+    width: 0%;
+    content: "";
+    height: 4px;
+    transition: all 0.3s;
+}
+  
+.nav-item:hover::after {
+    width: calc(100% - 10px);
+}
+
+div.slash {
+    width: 30px;
+    height: 4px;
+    border-radius: 10px;
+    background-color: black;
+    margin: 4px 0;
+}
+
+button.sign-in-btn {
+    background-color: #fff;
+    color: #016;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 15px;
+    transition: 0.5s;
+    border: none;
+    border: solid 0.2px #016;
+}
+
+button.sign-in-btn:hover {
+    background-color: #016;
+    color: #fff;
+    border: solid 0.2px #fff;
+
+    box-shadow: 1px 1px 10px 3px rgb(17, 39, 150);
+}
+
+#sign-in-sm {
+    display: none;
+}
+
+#sign-in-lg {
+    display: block;
+}
+
+
+@media only screen and (max-width: 990px) {
+    #sign-in-sm {
+        display: block;
+    }
+    
+    #sign-in-lg {
+        display: none;
+    }
+}
+
+nav {
+    z-index: 4 !important;
+}

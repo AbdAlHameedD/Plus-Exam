@@ -1,0 +1,25 @@
+div.personal-img {
+    border-radius: 30px;
+    height: 150px;
+    width: 150px;
+    transform: translateY(50%);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 5px solid #016;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+div.personal-img:hover {
+    box-shadow: 0px 0px 5px 2px grey;
+}
+
+div.testi-msg-card {
+    border: 5px solid #016;
+    border-radius: 100px;
+    overflow: hidden;
+    cursor: default;
+    height: fit-content;
+    padding: 90px;
+}

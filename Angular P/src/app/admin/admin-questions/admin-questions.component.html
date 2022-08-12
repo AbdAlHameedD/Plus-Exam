@@ -1,0 +1,253 @@
+<div class="overflow-hidden dark-edition bg-white">
+    <div class="wrapper">
+        <app-side-bar></app-side-bar>
+        <div class="main-panel">
+            <app-nav-bar></app-nav-bar>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 mb-30">
+                            <div class="card card-statistics h-100">
+                                <div class="card-body">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>Questions Information</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="row justify-content-start">
+
+                                                <!-- Course Drop List -->
+                                                <div class="col-2">
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>Course Name</mat-label>
+                                                        <mat-select>
+                                                            <mat-option (click)="getExamsCourse(-1)">None</mat-option>
+                                                            <mat-option *ngFor="let course of adminService.CoursesData"
+                                                                value="{{ course.id }}"
+                                                                (click)="getExamsCourse(course.id)">{{
+                                                                course.courseName | titlecase }}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <!-- Exam Drop List -->
+                                                <div class="col-2">
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>Exam Name</mat-label>
+                                                        <mat-select>
+                                                            <mat-option *ngFor="let exam of adminService.exams"
+                                                                value="{{ exam.id }}" (click)="updateExamId(exam.id)">{{
+                                                                exam.title | titlecase }}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <!-- Add Question Button -->
+                                                <div class="col-2">
+                                                    <div class="card-box table-responsive">
+                                                        <p class="text-muted font-13 m-b-30">
+                                                            <button class="btn btn-success btn-md"
+                                                                (click)="moveToCreateExamQuestions()"
+                                                                aria-pressed="true">Add
+                                                                Question</button>
+                                                            <br><br>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <table class="table text-center" [(ngModel)]="adminService.questionsDetails">
+
+                                            <thead>
+
+                                                <tr>
+                                                    <th>
+                                                        Exam Name
+                                                    </th>
+
+                                                    <th>
+                                                        Question Text
+                                                    </th>
+
+                                                    <th>
+                                                        Type
+                                                    </th>
+
+                                                    <th>
+                                                        Status
+                                                    </th>
+
+                                                    <th>
+                                                        Score
+                                                    </th>
+
+                                                    <!-- Arrow Details -->
+                                                    <th></th>
+
+                                                </tr>
+
+                                            </thead>
+
+                                            <tbody>
+                                                <ng-container
+                                                    *ngFor="let questionExam of adminService.questionsDetails.questionsExamsDTO; let i=index">
+
+
+                                                    <tr class="row-element cus-bottom-border" (click)="handleExpand(i)">
+                                                        <!-- Exam Name -->
+                                                        <td>
+                                                            {{ questionExam.title | titlecase }}
+                                                        </td>
+
+                                                        <!-- Question Text -->
+                                                        <td>
+                                                            {{ questionExam.questionContent }}
+                                                        </td>
+
+                                                        <!-- Type -->
+                                                        <td>
+                                                            {{ questionExam.type }}
+                                                        </td>
+
+                                                        <!-- Status -->
+                                                        <td>
+                                                            {{ questionExam.status }}
+                                                        </td>
+
+                                                        <!-- End Date -->
+                                                        <td>
+                                                            {{ questionExam.score }}
+                                                        </td>
+
+                                                        <!-- Details Arrow -->
+                                                        <td>
+                                                            <button class="btn btn-light px-2">
+                                                                <i class="fa fa-angle-down transition-3"></i>
+                                                            </button>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="row-details display-none">
+                                                        <td colspan="8" style="overflow: hidden;">
+                                                            <div class="details-container"
+                                                                style="transform: translateY(-110%); transition: 0.5s;">
+                                                                <div class="container">
+
+                                                                    <div class="row justify-content-start"
+                                                                        style="color: #000">
+
+                                                                        <!-- Correct Answer Label -->
+                                                                        <div class="col-2 correct-answer-lbl">
+                                                                            Correct Answer :
+                                                                        </div>
+
+                                                                        <!-- Correct Answer Value -->
+                                                                        <div
+                                                                            class="col-10 correct-answer-value text-left">
+
+                                                                            <!-- Single -->
+                                                                            <ng-container
+                                                                                *ngIf="questionExam.type == 'Single'">
+                                                                                <ng-container
+                                                                                    *ngFor="let answer of questionExam.correctAnswers">
+                                                                                    {{ answer.correctanswerContent }}
+                                                                                </ng-container>
+                                                                            </ng-container>
+
+                                                                            <!-- Multiple -->
+                                                                            <ng-container
+                                                                                *ngIf="questionExam.type == 'Multiple'">
+                                                                                <ng-container
+                                                                                    *ngFor="let answer of questionExam.correctAnswers; let i=index">
+
+                                                                                    {{ i + 1 }}) {{
+                                                                                    answer.correctanswerContent }}<br>
+
+                                                                                </ng-container>
+                                                                            </ng-container>
+
+                                                                            <!-- Fill -->
+                                                                            <ng-container
+                                                                                *ngIf="questionExam.type == 'Fill'">
+
+                                                                                <ng-container
+                                                                                    *ngFor="let answer of questionExam.options">
+                                                                                    {{
+                                                                                    answer.optionContent
+                                                                                    }}
+                                                                                </ng-container>
+
+
+                                                                            </ng-container>
+
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="container my-3">
+                                                                <div class="row justify-content-center">
+                                                                    <!-- Delete -->
+                                                                    <div class="col-4">
+                                                                        <a class="btn btn-danger btn-sm text-white w-25"
+                                                                            role="button" aria-pressed="true"
+                                                                            (click)="deleteQuestion(questionExam)"
+                                                                            title="Delete" style="cursor:pointer;"><i
+                                                                                class="fa fa-trash"></i></a>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Exam Dialog -->
+<ng-template #callDeleteDialog>
+    <div class="modal-header">
+        <h5 style="font-family: 'Cairo', sans-serif; font-weight: bold; color: black;" class="modal-title"
+            id="exampleModalLabel">Delete Question</h5>
+        <button type="button" class="close text-danger" mat-button mat-dialog-close="no">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body py-3">
+        <h5 style="font-family: 'Cairo', sans-serif; color: black; font-weight: bold;">Are you sure you want to delete
+            question and all related data?
+        </h5>
+        <label style="color: #001166; font-weight:bold;">Question Text: {{ selectedQuestionTodDelete.questionContent
+            }}</label>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary font-weight-bold" mat-button mat-dialog-close>Close</button>
+        <button class="btn btn-sm btn-danger" mat-button mat-dialog-close>Delete</button>
+    </div>
+</ng-template>
+<!-- /End Delete Exam Dialog -->
