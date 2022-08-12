@@ -19,3 +19,6 @@ Thanks for Tahaluf Al Emarat Technical Solution and thier trainers especially:
   8) Lilas Al-Qawasmeh
   9) Munther Al Joudeh
   10) Mutaz Makhatreh
+
+
+Note: Plus Exam is the final project in training with Tahaluf Al Emarat Technology Solutions.
