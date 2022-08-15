@@ -16,9 +16,9 @@ Thanks for Tahaluf Al Emarat Technical Solution and thier trainers especially:
   5) ENG.Raghad Al-Quran
   6) ENG.Dana Knaan
   7) ENG.Shoroq Sallam
-  8) Lilas Al-Qawasmeh
-  9) Munther Al Joudeh
-  10) Mutaz Makhatreh
+  8) ENG.Lilas Al-Qawasmeh
+  9) ENG.Munther Al Joudeh
+  10) ENG.Mutaz Makhatreh
 
 
 Note: Plus Exam is the final project in training with Tahaluf Al Emarat Technology Solutions.
